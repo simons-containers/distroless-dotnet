@@ -82,9 +82,10 @@ RUN curl --silent --show-error --location --output dotnet.tar.gz \
     && mkdir -p /base/usr/share \
     && cp -r dotnet /base/usr/share/dotnet
 
-RUN find /usr/lib -type f \( -name '*.so' -o -name '*.so.*' \) \
+RUN find /base/usr/lib -type f \( -name '*.so' -o -name '*.so.*' \) \
         -exec sh -c 'strip --strip-unneeded "$1" || :' _ {} \; \
-    && find /base/usr \( -name '*.h' -o -name '*.a' -o -name '*.o' \) -delete \
+    && find /base/usr -type f \
+        \( -name '*.h' -o -name '*.a' -o -name '*.o' -o -name '*.la' \) -delete \
     && rm -rf \
         /base/usr/include \
         /base/usr/lib/{cmake,pkgconfig,gconv} \
