@@ -30,10 +30,9 @@ jobs:
             ICU=$(git ls-remote --tags https://github.com/unicode-org/icu.git/ \
               | awk -F/ '/\/release/&& !/rc/ {gsub("release-", ""); print $3}' \
               | sort -V | tail -1)
-            ZLIB=$(curl -sf https://zlib.net/ \
-              | grep -o 'zlib-[0-9]\+\.[0-9]\+\(\.[0-9]\+\)\?\.tar\.gz' \
-              | sed 's/zlib-//; s/\.tar\.gz//' \
-              | sort -V | tail -n 1)
+            ZLIB=$(git ls-remote --tags https://github.com/madler/zlib \
+              | awk -F/ '!/\^/ {gsub("v",""); print $3}' \
+              | sort -V | tail -1)
             OPENSSL=$(git ls-remote --tags https://github.com/openssl/openssl.git/ \
               | awk -F/ '/[0-9]$/  && /openssl-/ && ! /-[a-z]/ {gsub("openssl-", ""); print $3}' \
               | sort -V | grep -Ev '^4' | tail -1)
