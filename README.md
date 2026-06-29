@@ -1,7 +1,3 @@
-![Latest](https://ghcr-badge.egpl.dev/simons-containers/distroless-dotnet/latest_tag?ignore=latest,sha256*&label=latest)  
-![Size](https://ghcr-badge.egpl.dev/simons-containers/distroless-dotnet/size?tag=latest)  
-![Tags](https://ghcr-badge.egpl.dev/simons-containers/distroless-dotnet/tags?ignore=latest,sha256*)  
-
 # Distroless dotnet container
 
 Bare-bones distroless .NET container image.
