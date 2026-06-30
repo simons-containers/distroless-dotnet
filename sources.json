@@ -28,7 +28,7 @@
     }
   },
   "icu": {
-    "version": "78.3",DOTNET_VERSION
+    "version": "78.3",
     "purl": "pkg:generic/icu",
     "source": {
       "url_pattern": "https://github.com/unicode-org/icu/releases/download/release-{version}/icu4c-{version}-sources.tgz"
