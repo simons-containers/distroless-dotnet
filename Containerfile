@@ -7,12 +7,12 @@ ARG LIBUNWIND_VERSION
 ARG ICU_VERSION
 ARG DOTNET_VERSION
 
-ARG GCC_SOURCE=https://mirrors.ocf.berkeley.edu/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz
-ARG ZLIB_SOURCE=https://github.com/madler/zlib/releases/download/v${ZLIB_VERSION}/zlib-${ZLIB_VERSION}.tar.gz
-ARG OPENSSL_SOURCE=https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz
-ARG LIBUNWIND_SOURCE=https://github.com/libunwind/libunwind/releases/download/v${LIBUNWIND_VERSION}/libunwind-${LIBUNWIND_VERSION}.tar.gz
-ARG ICU_SOURCE=https://github.com/unicode-org/icu/releases/download/release-${ICU_VERSION}/icu4c-${ICU_VERSION}-sources.tgz
-ARG DOTNET_TARFILE=https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/${DOTNET_VERSION}/aspnetcore-runtime-${DOTNET_VERSION}-linux-x64.tar.gz
+ARG GCC_SOURCE
+ARG ZLIB_SOURCE
+ARG OPENSSL_SOURCE
+ARG LIBUNWIND_SOURCE
+ARG ICU_SOURCE
+ARG DOTNET_RELEASE
 
 RUN pacman -Sy --noconfirm cmake python wget >/dev/null
 
@@ -76,7 +76,7 @@ RUN curl --silent --show-error --location --output icu.tar.gz \
 
 WORKDIR /extract/dotnet
 RUN curl --silent --show-error --location --output dotnet.tar.gz \
-    "${DOTNET_TARFILE}" \
+    "${DOTNET_RELEASE}" \
     && mkdir dotnet \
     && tar xf dotnet.tar.gz -C dotnet \
     && mkdir -p /base/usr/share \
