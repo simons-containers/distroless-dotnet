@@ -45,13 +45,23 @@ jobs:
 
             : "${GCC:?}" "${ICU:?}" "${ZLIB:?}" "${OPENSSL:?}" "${LIBUNWIND:?}" "${DOTNET:?}"
             
-            yq -i ".gcc= \"$GCC\"" versions.yaml
-            yq -i ".icu= \"$ICU\"" versions.yaml
-            yq -i ".zlib= \"$ZLIB\"" versions.yaml
-            yq -i ".openssl= \"$OPENSSL\"" versions.yaml
-            yq -i ".libunwind= \"$LIBUNWIND\"" versions.yaml
-            yq -i ".dotnet= \"$DOTNET\"" versions.yaml
-            git diff versions.yaml
+            jq \
+              --arg gcc "$GCC" \
+              --arg icu  "$ICU" \
+              --arg zlib "$ZLIB" \
+              --arg openssl "$OPENSSL" \
+              --arg libunwind "$LIBUNWIND" \
+              --arg dotnet "$DOTNET" \
+              '
+                .gcc.version = $gcc |
+                .icu.version  = $icu |
+                .zlib.version = $zlib |
+                .openssl.version = $openssl |
+                .libunwind.version = $libunwind |
+                .dotnet.version = $dotnet
+              ' sources.json > tmp.json && mv tmp.json sources.json
+
+            git diff sources.json
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
