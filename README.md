@@ -4,23 +4,6 @@
 
 Bare-bones distroless .NET container image.
 
-## Building
-
-| Build Arg | Description |
-|---|---|
-| `GCC_VERSION` | Version of gcc to use
-| `ZLIB_VERSION` | Version of zlib to use
-| `OPENSSL_VERSION` | Version of openssl to use
-| `LIBUNWIND_VERSION` | Version of libunwind to use
-| `ICU_VERSION` | Version of icu to use
-| `DOTNET_VERSION` | Version of dotnet to use
-
-Build container using build-args from versions.yaml:
-
-```bash
-docker build -t dotnet $(yq -r 'to_entries | .[] | "--build-arg \(.key | ascii_upcase)_VERSION=\(.value)"' versions.yaml) -f Containerfile .
-```
-
 ## License
 
 Repository contents (e.g., `Containerfile`, build scripts, and configuration) are licensed under the **MIT License**.
