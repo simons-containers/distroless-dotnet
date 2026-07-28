@@ -98,7 +98,7 @@ RUN find /base/usr/lib -type f \( -name '*.so' -o -name '*.so.*' \) \
         /base/usr/bin/{icu-config,genrb,c_rehash,icuinfo,genbrk,gencnval} \
         /base/usr/bin/{gendict,makeconv}
 
-FROM ghcr.io/simons-containers/distroless-glibc:2.43
+FROM ghcr.io/simons-containers/distroless-glibc:2.44
 
 ARG GCC_VERSION
 ARG ZLIB_VERSION
