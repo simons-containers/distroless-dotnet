@@ -1,4 +1,4 @@
-FROM archlinux:base-devel-20260607.0.541780 AS builder
+FROM archlinux:base-devel-20260809.0.570793 AS builder
 
 ARG GCC_VERSION
 ARG ZLIB_VERSION
