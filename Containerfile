@@ -17,8 +17,9 @@ ARG DOTNET_RELEASE
 RUN pacman -Sy --noconfirm cmake python wget >/dev/null
 
 WORKDIR /build/gcc
-RUN curl --silent --show-error --location --output gcc.tar.gz \
-    "${GCC_SOURCE}" \
+RUN curl --silent --show-error --location  \
+    --retry 5 --retry-max-time 30 \
+    --output gcc.tar.gz "${GCC_SOURCE}" \
     && tar xf gcc.tar.gz --strip-components=1 \
     && ./contrib/download_prerequisites \
     && mkdir build && cd build \
@@ -35,16 +36,18 @@ RUN curl --silent --show-error --location --output gcc.tar.gz \
     && make install-target-libstdc++-v3 DESTDIR=/base
 
 WORKDIR /build/zlib
-RUN curl --silent --show-error --location --output zlib.tar.gz \
-    "${ZLIB_SOURCE}" \
+RUN curl --silent --show-error --location  \
+    --retry 5 --retry-max-time 30 \
+    --output zlib.tar.gz "${ZLIB_SOURCE}" \
     && tar xf zlib.tar.gz --strip-components=1 \
     && ./configure --prefix=/usr \
     && make -s -j$(nproc) \
     && make install DESTDIR=/base
 
 WORKDIR /build/openssl
-RUN curl --silent --show-error --location --output openssl.tar.gz \
-    "${OPENSSL_SOURCE}" \
+RUN curl --silent --show-error --location  \
+    --retry 5 --retry-max-time 30 \
+    --output openssl.tar.gz "${OPENSSL_SOURCE}" \
     && tar xf openssl.tar.gz --strip-components=1 \
     && ./Configure linux-x86_64 \
          --prefix=/usr \
@@ -55,16 +58,18 @@ RUN curl --silent --show-error --location --output openssl.tar.gz \
     && make install_sw DESTDIR=/base
 
 WORKDIR /build/libunwind
-RUN curl --silent --show-error --location --output libunwind.tar.gz \
-    "${LIBUNWIND_SOURCE}" \
+RUN curl --silent --show-error --location  \
+    --retry 5 --retry-max-time 30 \
+    --output libunwind.tar.gz "${LIBUNWIND_SOURCE}" \
     && tar xf libunwind.tar.gz --strip-components=1 \
     && ./configure --prefix=/usr --disable-tests \
     && make -s -j$(nproc) \
     && make install DESTDIR=/base
 
 WORKDIR /build/icu
-RUN curl --silent --show-error --location --output icu.tar.gz \
-    "${ICU_SOURCE}" \
+RUN curl --silent --show-error --location  \
+    --retry 5 --retry-max-time 30 \
+    --output icu.tar.gz "${ICU_SOURCE}" \
     && tar xf icu.tar.gz --strip-components=1 \
     && cd source \
     && ./configure \
@@ -75,8 +80,9 @@ RUN curl --silent --show-error --location --output icu.tar.gz \
     && make install DESTDIR=/base
 
 WORKDIR /extract/dotnet
-RUN curl --silent --show-error --location --output dotnet.tar.gz \
-    "${DOTNET_RELEASE}" \
+RUN curl --silent --show-error --location  \
+    --retry 5 --retry-max-time 30 \
+    --output dotnet.tar.gz "${DOTNET_RELEASE}" \
     && mkdir dotnet \
     && tar xf dotnet.tar.gz -C dotnet \
     && mkdir -p /base/usr/share \
